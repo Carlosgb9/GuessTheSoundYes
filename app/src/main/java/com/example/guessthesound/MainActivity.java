@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Integer[] images = {R.raw.darksouls, R.raw.hollowknight, R.raw.mario, R.raw.minecraft, R.raw.pacman,
             R.raw.pokemon, R.raw.sonic, R.raw.tetris, R.raw.wiisports, R.raw.zelda};
-    private List<Integer> notUsedImages = Arrays.asList(images);
+    private List<Integer> notUsedImages = new LinkedList<Integer>(Arrays.asList(images));
 
 
     @Override
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Integer randomIndex = new Random().nextInt(notUsedImages.size());
         Integer imageId = notUsedImages.get(randomIndex);
         iv.setImageResource(imageId);
-        notUsedImages.remove(randomIndex);
+        notUsedImages.remove(imageId);
     }
 
     private void initializer (){
