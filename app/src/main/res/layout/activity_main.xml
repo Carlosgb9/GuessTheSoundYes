@@ -15,43 +15,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TableLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <ImageButton
+                    android:id="@+id/ibFirst"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginRight="10dp">
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerInside"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-                    <ImageView
-                        android:id="@+id/ivFirst"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:scaleType="centerInside"
-                        tools:srcCompat="@tools:sample/avatars" />
+                <ImageButton
+                    android:id="@+id/ibSecond"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerInside"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-                    <ImageView
-                        android:id="@+id/ivSecond"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:scaleType="centerInside"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/ivThird"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:scaleType="centerInside"
-                        tools:srcCompat="@tools:sample/avatars" />
-                </TableRow>
-
-            </TableLayout>
+                <ImageButton
+                    android:id="@+id/ibThird"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerInside"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/ibPlay"

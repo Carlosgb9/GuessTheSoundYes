@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView ivFirst, ivSecond, ivThird;
+    private ImageView ibFirst, ibSecond, ibThird;
     private ImageButton ibPlay;
 
     private Integer[] images = {R.raw.darksouls, R.raw.hollowknight, R.raw.mario, R.raw.minecraft, R.raw.pacman,
@@ -31,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNewImages(){
-        setRandomImage(ivFirst);
-        setRandomImage(ivSecond);
-        setRandomImage(ivThird);
+        setRandomImage(ibFirst);
+        setRandomImage(ibSecond);
+        setRandomImage(ibThird);
         notUsedImages = Arrays.asList(images);
     }
 
@@ -45,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializer (){
-        ivFirst = findViewById(R.id.ivFirst);
-        ivSecond = findViewById(R.id.ivSecond);
-        ivThird = findViewById(R.id.ivThird);
+        ibFirst = findViewById(R.id.ibFirst);
+        ibSecond = findViewById(R.id.ibSecond);
+        ibThird = findViewById(R.id.ibThird);
         ibPlay = findViewById(R.id.ibPlay);
     }
 
@@ -63,5 +62,9 @@ public class MainActivity extends AppCompatActivity {
     -Pacman
     -Wii sports
     -Hollow knight
+    -Smash bross
+    -Mario kart
+    -Overwatch
+    -Metal gear
  */
 }
