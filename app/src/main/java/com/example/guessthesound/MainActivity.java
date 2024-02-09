@@ -16,8 +16,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ibFirst, ibSecond, ibThird;
     private ImageButton ibPlay;
 
-    private Integer[] images = {R.raw.darksouls, R.raw.hollowknight, R.raw.mario, R.raw.minecraft, R.raw.pacman,
-            R.raw.pokemon, R.raw.sonic, R.raw.tetris, R.raw.wiisports, R.raw.zelda};
+    private Integer[] images = {R.drawable.darksouls, R.drawable.hollowknight, R.drawable.mario, R.drawable.minecraft, R.drawable.pacman,
+            R.drawable.pokemon, R.drawable.sonic, R.drawable.tetris, R.drawable.wiisports, R.drawable.zelda, R.drawable.metalgear, R.drawable.mariokart,
+            R.drawable.minecraft, R.drawable.overwatch, R.drawable.smashbros};
+    private Integer[] audio = {R.raw.darksouls, R.raw.hollowknight, R.raw.mario, R.raw.minecraft, R.raw.pacman,
+            R.raw.pokemon, R.raw.sonic, R.raw.tetris, R.raw.wiisports, R.raw.zelda, R.raw.metalgear, R.raw.mariokart,
+            R.raw.minecraft, R.raw.overwatch, R.raw.smashbros};
     private List<Integer> notUsedImages = new LinkedList<Integer>(Arrays.asList(images));
 
 
