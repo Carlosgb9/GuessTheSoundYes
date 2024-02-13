@@ -57,7 +57,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="100dp"
+                android:layout_marginBottom="30dp"
                 app:srcCompat="@android:drawable/ic_media_play" />
+
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvPoints"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="24sp" />
 
         </LinearLayout>
     </ScrollView>

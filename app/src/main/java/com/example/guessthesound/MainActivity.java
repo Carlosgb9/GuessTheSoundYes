@@ -2,9 +2,11 @@ package com.example.guessthesound;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView ibFirst, ibSecond, ibThird;
     private ImageButton ibPlay;
+    private TextView tvResult, tvPoints;
 
     private final Integer[] images = {R.drawable.darksouls, R.drawable.hollowknight, R.drawable.mario, R.drawable.pacman,
             R.drawable.pokemon, R.drawable.sonic, R.drawable.tetris, R.drawable.wiisports, R.drawable.zelda, R.drawable.metalgear, R.drawable.mariokart,
@@ -26,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
             R.raw.pokemon, R.raw.sonic, R.raw.tetris, R.raw.wiisports, R.raw.zelda, R.raw.metalgear, R.raw.mariokart,
             R.raw.minecraft, R.raw.overwatch, R.raw.smashbros};
     private List<Integer> notUsedImages = new LinkedList<Integer>(Arrays.asList(images));
-    private final List<Integer> notUsedAudios = new LinkedList<Integer>(Arrays.asList(audios));
+    private List<Integer> notUsedAudios = new LinkedList<Integer>(Arrays.asList(audios));
     private final List<Integer> usedAudios = new LinkedList<Integer>();
-    private final List<Integer> usedImages = new LinkedList<Integer>();
-
+    private Integer points = 0;
     private Integer chosenAudio;
+    private Integer winnerIndex;
     private MediaPlayer mp;
 
 
@@ -40,16 +43,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializer();
         setNewImages();
-        chooseRandomAudio();
+        chooseWinnerAudio();
         mp = MediaPlayer.create(MainActivity.this, chosenAudio);
         ibPlay.setOnClickListener(v -> playSoundOnClick());
+        winnerCases();
     }
 
     private void setNewImages() {
         setRandomImage(ibFirst);
         setRandomImage(ibSecond);
         setRandomImage(ibThird);
+        notUsedAudios = Arrays.asList(audios);
         notUsedImages = Arrays.asList(images);
+        usedAudios.clear();
     }
 
     private void setRandomImage(ImageView iv) {
@@ -57,15 +63,14 @@ public class MainActivity extends AppCompatActivity {
         Integer imageId = notUsedImages.get(randomIndex);
         Integer audioId = notUsedAudios.get(randomIndex);
         usedAudios.add(audioId);
-        usedImages.add(imageId);
         iv.setImageResource(imageId);
         notUsedImages.remove(imageId);
         notUsedAudios.remove(audioId);
     }
 
-    private void chooseRandomAudio() {
-        Integer randomIndex = new Random().nextInt(usedAudios.size());
-        Integer audioId = usedAudios.get(randomIndex);
+    private void chooseWinnerAudio() {
+        winnerIndex = new Random().nextInt(usedAudios.size());
+        Integer audioId = usedAudios.get(winnerIndex);
         chosenAudio = audioId;
     }
 
@@ -74,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         ibSecond = findViewById(R.id.ibSecond);
         ibThird = findViewById(R.id.ibThird);
         ibPlay = findViewById(R.id.ibPlay);
+        tvPoints = findViewById(R.id.tvPoints);
+        tvResult = findViewById(R.id.tvResult);
     }
 
     private void playSoundOnClick() {
@@ -88,10 +95,48 @@ public class MainActivity extends AppCompatActivity {
         mp.start();
     }
 
-    private void imageOnClick() {
-
+    private void winnerOnClick(){
+        points++;
+        tvResult.setText("Correct!!");
+        tvPoints.setText(points);
+        cronometre();
+    }
+    private void loserOnClick(){
+        tvResult.setText("Wrong answer");
     }
 
+    private void winnerCases (){
+        switch (winnerIndex){
+            case 0:
+                ibFirst.setOnClickListener(v -> winnerOnClick());
+                ibSecond.setOnClickListener(v -> loserOnClick());
+                ibThird.setOnClickListener(v -> loserOnClick());
+                break;
+            case 1:
+                ibFirst.setOnClickListener(v -> loserOnClick());
+                ibSecond.setOnClickListener(v -> winnerOnClick());
+                ibThird.setOnClickListener(v -> loserOnClick());
+                break;
+            case 2:
+                ibFirst.setOnClickListener(v -> loserOnClick());
+                ibSecond.setOnClickListener(v -> loserOnClick());
+                ibThird.setOnClickListener(v -> winnerOnClick());
+        }
+    }
+
+    public void cronometre(){
+        new CountDownTimer(2000, 1000) {
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                setNewImages();
+                chooseWinnerAudio();
+                mp = MediaPlayer.create(MainActivity.this, chosenAudio);
+                ibPlay.setOnClickListener(v -> playSoundOnClick());
+                winnerCases();
+            }
+        }.start();
+    }
 
     /*
     -Mario bross
