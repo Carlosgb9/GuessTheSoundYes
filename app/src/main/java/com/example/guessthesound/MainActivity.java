@@ -24,10 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
     private final Integer[] images = {R.drawable.darksouls, R.drawable.hollowknight, R.drawable.mario, R.drawable.pacman,
             R.drawable.pokemon, R.drawable.sonic, R.drawable.tetris, R.drawable.wiisports, R.drawable.zelda, R.drawable.metalgear, R.drawable.mariokart,
-            R.drawable.minecraft, R.drawable.overwatch, R.drawable.smashbros};
+            R.drawable.minecraft, R.drawable.overwatch, R.drawable.smashbros, R.drawable.cyberpunk, R.drawable.doom, R.drawable.gtasa, R.drawable.halo,
+            R.drawable.mortalkombat, R.drawable.portal, R.drawable.skyrim, R.drawable.thelastofus, R.drawable.undertale, R.drawable.wow};
     private final Integer[] audios = {R.raw.darksouls, R.raw.hollowknight, R.raw.mario, R.raw.pacman,
             R.raw.pokemon, R.raw.sonic, R.raw.tetris, R.raw.wiisports, R.raw.zelda, R.raw.metalgear, R.raw.mariokart,
-            R.raw.minecraft, R.raw.overwatch, R.raw.smashbros};
+            R.raw.minecraft, R.raw.overwatch, R.raw.smashbros, R.raw.cyberpunk, R.raw.doom, R.raw.gtasa, R.raw.halo, R.raw.mortalkombat, R.raw.portal,
+            R.raw.skyrim, R.raw.thelastofus, R.raw.undertale, R.raw.wow};
     private List<Integer> notUsedImages = new LinkedList<Integer>(Arrays.asList(images));
     private List<Integer> notUsedAudios = new LinkedList<Integer>(Arrays.asList(audios));
     private final List<Integer> usedAudios = new LinkedList<Integer>();
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         process();
     }
 
-    private void process (){
+    private void
+    process (){
         setNewImages();
         chooseWinnerAudio();
         mp = MediaPlayer.create(MainActivity.this, chosenAudio);
