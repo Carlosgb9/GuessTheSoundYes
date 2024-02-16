@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializer();
+        process();
+    }
+
+    private void process (){
         setNewImages();
         chooseWinnerAudio();
         mp = MediaPlayer.create(MainActivity.this, chosenAudio);
@@ -53,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
         setRandomImage(ibFirst);
         setRandomImage(ibSecond);
         setRandomImage(ibThird);
-        notUsedAudios = Arrays.asList(audios);
-        notUsedImages = Arrays.asList(images);
-        usedAudios.clear();
     }
 
     private void setRandomImage(ImageView iv) {
@@ -96,13 +97,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void winnerOnClick(){
+        mp.stop();
         points++;
         tvResult.setText("Correct!!");
-        tvPoints.setText(points);
+        tvPoints.setText(points.toString());
+        usedAudios.clear();
+        notUsedAudios = new LinkedList<Integer>(Arrays.asList(audios));
+        notUsedImages = new LinkedList<Integer>(Arrays.asList(images));
         cronometre();
     }
     private void loserOnClick(){
         tvResult.setText("Wrong answer");
+        usedAudios.clear();
     }
 
     private void winnerCases (){
@@ -129,11 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
             }
             public void onFinish() {
-                setNewImages();
-                chooseWinnerAudio();
-                mp = MediaPlayer.create(MainActivity.this, chosenAudio);
-                ibPlay.setOnClickListener(v -> playSoundOnClick());
-                winnerCases();
+                process();
             }
         }.start();
     }
