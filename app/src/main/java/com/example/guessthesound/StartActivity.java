@@ -26,6 +26,7 @@ public class StartActivity extends AppCompatActivity {
     private ImageView ibFirst, ibSecond, ibThird;
     private ImageButton ibPlay;
     private TextView tvResult, tvPoints, tvBest;
+    private Button bAgain;
 
     private final Integer[] images = {R.drawable.darksouls, R.drawable.hollowknight, R.drawable.mario, R.drawable.pacman,
             R.drawable.pokemon, R.drawable.sonic, R.drawable.tetris, R.drawable.wiisports, R.drawable.zelda, R.drawable.metalgear, R.drawable.mariokart,
@@ -52,16 +53,25 @@ public class StartActivity extends AppCompatActivity {
         initializer();
         Bundle bundle = getIntent().getExtras();
         nombre = bundle.getString("name");
+        bAgain.setOnClickListener(v -> process());
+        tvResult.setVisibility(View.INVISIBLE);
         process();
     }
 
     private void
     process (){
+        tvPoints.setText(points.toString());
+        ibFirst.setVisibility(View.VISIBLE);
+        ibSecond.setVisibility(View.VISIBLE);
+        ibThird.setVisibility(View.VISIBLE);
+        ibPlay.setVisibility(View.VISIBLE);
         tvBest.setVisibility(View.GONE);
+        bAgain.setVisibility(View.GONE);
         setNewImages();
         chooseWinnerAudio();
         mp = MediaPlayer.create(StartActivity.this, chosenAudio);
         ibPlay.setOnClickListener(v -> playSoundOnClick());
+        mp.start();
         winnerCases();
     }
 
@@ -95,6 +105,7 @@ public class StartActivity extends AppCompatActivity {
         tvPoints = findViewById(R.id.tvPoints);
         tvResult = findViewById(R.id.tvResult);
         tvBest = findViewById(R.id.tvBest);
+        bAgain = findViewById(R.id.bAgain);
     }
 
     private void playSoundOnClick() {
@@ -125,23 +136,42 @@ public class StartActivity extends AppCompatActivity {
         ibFirst.setVisibility(View.GONE);
         ibSecond.setVisibility(View.GONE);
         ibThird.setVisibility(View.GONE);
+        ibPlay.setVisibility(View.GONE);
         tvBest.setVisibility(View.VISIBLE);
+        bAgain.setVisibility(View.VISIBLE);
+        tvPoints.setText("La teva puntuaciò : " + points);
+        mp.stop();
         topScore();
+        newBest();
+        points = 0;
     }
 
     public void topScore (){
-        SharedPreferences sharedPref = getSharedPreferences("cat.institutmarianao.GostBusters", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("cat.institutmarianao.GuessTheSound", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         String topPlayer = sharedPref.getString("topPlayer", null);
         int topScore = sharedPref.getInt(topPlayer, 0);
         if (points > topScore) {
             editor.putString("topPlayer", nombre);
             tvBest.setText("Maxima puntuacio: " + points + "\nJugador: " + nombre);
+        } else {
+            tvBest.setText("Maxima puntuacio: " + topScore + "\nJugador: " + topPlayer);
+        }
+        editor.commit();
+    }
+
+    public void newBest (){
+        SharedPreferences sharedPref = getSharedPreferences("cat.institutmarianao.GuessTheSound", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        int scorePlayer = sharedPref.getInt(nombre, 0);
+        if (points > scorePlayer){
+            editor.putInt(nombre, points);
         }
         editor.commit();
     }
 
     private void winnerCases (){
+        tvResult.setVisibility(View.VISIBLE);
         switch (winnerIndex){
             case 0:
                 ibFirst.setOnClickListener(v -> winnerOnClick());

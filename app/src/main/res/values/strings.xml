@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GuessTheSound</string>
+    <string name="jugar">Jugar</string>
+    <string name="nom">Introdueix el teu nom</string>
+    <string name="description">Intenta endevinar el maxim de bandes sonores de videojocs posibles</string>
+    <string name="wrong">Resposta erronia :(</string>
+    <string name="right">Resposta correcta !!</string>
+    <string name="max">Maxima puntuacio</string>
+    <string name="jugador">Jugador:</string>
+    <string name="yourPoints">La teva puntuacio:</string>
 </resources>
