@@ -51,6 +51,7 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializer();
+        mp = new MediaPlayer();
         Bundle bundle = getIntent().getExtras();
         nombre = bundle.getString("name");
         bAgain.setOnClickListener(v -> process());
@@ -69,8 +70,8 @@ public class StartActivity extends AppCompatActivity {
         bAgain.setVisibility(View.GONE);
         setNewImages();
         chooseWinnerAudio();
-        mp = MediaPlayer.create(StartActivity.this, chosenAudio);
-        ibPlay.setOnClickListener(v -> playSoundOnClick());
+        ibPlay.setOnClickListener(v -> playSoundOnClick(chosenAudio));
+        playSoundOnClick(chosenAudio);
         mp.start();
         winnerCases();
     }
@@ -108,7 +109,8 @@ public class StartActivity extends AppCompatActivity {
         bAgain = findViewById(R.id.bAgain);
     }
 
-    private void playSoundOnClick() {
+    private void playSoundOnClick(Integer chosenAudio) {
+        mp = MediaPlayer.create(StartActivity.this, chosenAudio);
         if (mp.isPlaying()) {
             mp.stop();
             try {
@@ -122,6 +124,7 @@ public class StartActivity extends AppCompatActivity {
 
     private void winnerOnClick(){
         mp.stop();
+        playSoundOnClick(R.raw.winsound);
         points++;
         tvResult.setText("Correct!!");
         tvPoints.setText(points.toString());
@@ -131,6 +134,8 @@ public class StartActivity extends AppCompatActivity {
         cronometre();
     }
     private void loserOnClick(){
+        mp.stop();
+        playSoundOnClick(R.raw.losesound);
         tvResult.setText("Wrong answer");
         usedAudios.clear();
         ibFirst.setVisibility(View.GONE);
@@ -140,7 +145,6 @@ public class StartActivity extends AppCompatActivity {
         tvBest.setVisibility(View.VISIBLE);
         bAgain.setVisibility(View.VISIBLE);
         tvPoints.setText("La teva puntuaciò : " + points);
-        mp.stop();
         topScore();
         newBest();
         points = 0;
